@@ -69,12 +69,18 @@
       .buttons {
         display: flex;
         width: 90%;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
+      }
+      .buttonDiv {
+        display: flex;
+        width: 55%;
+        align-items: center;
+        justify-content: space-between;
       }
       form button {
         border: 2px solid black;
-        margin: 10px auto;
+        /* margin: 10px auto; */
         font-weight: bold;
         color: white;
         background: rgb(243, 33, 33);
@@ -85,6 +91,14 @@
       form button:active {
         background: white;
         color: rgb(243, 33, 33);
+      }
+      #warning {
+        background: rgb(243, 129, 129);
+        border: 3px dashed rgb(243, 33, 33);
+        font-weight: bold;
+      }
+      .hidden {
+        display: none;
       }
       .results {
         margin: 10px auto;
@@ -107,6 +121,33 @@
         width: 90%;
         word-wrap: break-word;
       }
+      @media (max-width: 500px) {
+        h1 {
+          font-size: 1.5rem;
+        }
+        h2 {
+          font-size: 1.25rem;
+        }
+
+        p,
+        h3,
+        #description,
+        .newton {
+          font-size: 1.1rem;
+          text-align: center;
+        }
+        .buttons {
+          flex-direction: column;
+          margin: 10px auto;
+        }
+        .buttonDiv {
+          flex-direction: column;
+        }
+        #inputPhrase,
+        #outputPhrase {
+          width: 75%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -127,6 +168,9 @@
     <div class="container">
       <form>
         <h2>Get Reversing:</h2>
+        <p id="warning" class="hidden">
+          Warning: That phrase has reached the maximum reverse-able length!
+        </p>
         <input
           type="text"
           name="original"
@@ -134,7 +178,11 @@
           placeholder="Enter text to see it reversed"
         />
         <div class="buttons">
-          <button id="reset">Reset</button>
+          <div></div>
+          <div class="buttonDiv">
+            <button id="reset">Reset</button>
+            <span class="characterCount"></span>
+          </div>
         </div>
       </form>
       <div class="results">
@@ -151,7 +199,10 @@
       const inputPhrase = document.querySelector("#inputPhrase");
       const outputPhrase = document.querySelector("#outputPhrase");
       const input = document.querySelector("input");
+      const warning = document.querySelector("#warning");
+      const counter = document.querySelector(".characterCount");
       const resetBtn = document.querySelector("#reset");
+      counter.textContent = "Remaining Characters: 200";
       input.addEventListener("input", e => {
         // console.log(e.target.value);
         inputPhrase.textContent = e.target.value;
@@ -159,10 +210,20 @@
           .split("")
           .reverse()
           .join("");
+        let characters = 200 - e.target.value.length;
+        if (characters == 0) {
+          warning.classList.remove("hidden");
+        } else {
+          warning.classList.add("hidden");
+        }
+        counter.textContent = "Remaining Characters: " + characters;
       });
       resetBtn.addEventListener("click", e => {
         e.preventDefault();
         input.value = "";
+        let characters = 200 - input.value.length;
+        counter.textContent = "Remaining Characters: " + characters;
+        warning.classList.add("hidden");
       });
     </script>
   </body>
