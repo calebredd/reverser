@@ -1,0 +1,25 @@
+{
+  "name": "reverser",
+  "version": "1.0.0",
+  "description": "Takes a string from a form input and reverses the characters for the output.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": " node index.js",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calebredd/reverser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calebredd/reverser/issues"
+  },
+  "homepage": "https://github.com/calebredd/reverser#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}
